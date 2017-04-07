@@ -1,6 +1,6 @@
 # image_segmentation_chromosomes
 
-This repository uses machine learning for the computer vision problem of image segmentation to distinguish between overlapping chromosomes.  This problem was proposed by [Artificial Intelligence Open Networks (AI ON)](http://ai-on.org/projects/visual-segmentation-of-chromosomal-preparations.html), the problem of which is copied below for convenience.  
+This repository uses machine learning for the computer vision problem of image segmentation to distinguish between overlapping chromosomes.  This problem was proposed by [Artificial Intelligence Open Networks (AI ON)](http://ai-on.org/projects/visual-segmentation-of-chromosomal-preparations.html), copied below for convenience.  
 
 ## Problem description
 
