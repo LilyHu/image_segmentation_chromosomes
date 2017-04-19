@@ -14,7 +14,7 @@ A fast and fully-automated segmentation solution can allow to scale certain expe
 
 [A Geometric Approach To Fully Automatic Chromosome Segmentation](https://arxiv.org/abs/1112.4164)
 
-[Automated Discrimination of Dicentric and Monocentric](http://biorxiv.org/content/biorxiv/early/2016/01/19/037309.full.pdf) Chromosomes by Machine Learning-based Image Processing
+[Automated Discrimination of Dicentric and Monocentric Chromosomes by Machine Learning-based Image Processing](http://biorxiv.org/content/biorxiv/early/2016/01/19/037309.full.pdf) 
 
 [An Efficient Segmentation Method for Overlapping Chromosome Images](http://research.ijcaonline.org/volume95/number1/pxc3894861.pdf)
 
