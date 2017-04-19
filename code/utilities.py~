@@ -156,7 +156,7 @@ def meanIOU(y_pred, y_true):
             IUs.append(intersection.sum()/union.sum())
     return sum(IUs)/len(IUs)
 	
-def IOU(y_pred, y_true):
+def IU(y_pred, y_true):
     '''
     Calculate the IOU for each class seperately
     '''
