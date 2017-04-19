@@ -1,19 +1,15 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import utilities
+import os
 from OverlapSegmentationNet import OverlapSegmentationNet
 
 import tensorflow as tf
-import tensorflow as tf
-get_ipython().magic('matplotlib inline')
-import matplotlib.pyplot as plt
-plt.rcParams['image.cmap'] = 'gist_earth'
-import numpy as np
 
 # Load data
-xdata = np.load('xdata_88x88.npy')
-labels = np.load('ydata_88x88_0123_onehot.npy')
-train_test_boundary_index = round(13434*.8)
+xdata = np.load('xdata_88x88.npy')[0:10,...]
+labels = np.load('ydata_88x88_0123_onehot.npy')[0:10,...]
+train_test_boundary_index = 8#round(13434*.8)
 
 model = OverlapSegmentationNet(input_shape=(88,88,1))
 
@@ -26,6 +22,7 @@ for i in range(num_epoch):
     
     # Fit
     model.fit(x=xdata, y=labels, epochs=1, validation_split=0.2) 
+    os.makedirs('models', exist_ok=True)
     filename = 'models/savedmodel_' + str(i) + 'epoch'
     model.save(filename)
     

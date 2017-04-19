@@ -7,9 +7,9 @@ from OverlapSegmentationNet import OverlapSegmentationNet
 import tensorflow as tf
 
 # Load data
-xdata = np.load('xdata_88x88.npy')[0:10,...]
-labels = np.load('ydata_88x88_0123_onehot.npy')[0:10,...]
-train_test_boundary_index = 8#round(13434*.8)
+xdata = np.load('xdata_88x88.npy')
+labels = np.load('ydata_88x88_0123_onehot.npy')
+train_test_boundary_index = round(13434*.8)
 
 model = OverlapSegmentationNet(input_shape=(88,88,1))
 
