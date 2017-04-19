@@ -1,11 +1,6 @@
-
-# coding: utf-8
-
-# In[ ]:
-
 import matplotlib.pyplot as plt
 import numpy as np
-#import utilities
+import utilities
 from OverlapSegmentationNet import OverlapSegmentationNet
 
 import tensorflow as tf
@@ -15,16 +10,10 @@ import matplotlib.pyplot as plt
 plt.rcParams['image.cmap'] = 'gist_earth'
 import numpy as np
 
-
-# In[ ]:
-
 # Load data
 xdata = np.load('xdata_88x88.npy')
 labels = np.load('ydata_88x88_0123_onehot.npy')
 train_test_boundary_index = round(13434*.8)
-
-
-# In[ ]:
 
 model = OverlapSegmentationNet(input_shape=(88,88,1))
 
@@ -32,7 +21,7 @@ model = OverlapSegmentationNet(input_shape=(88,88,1))
 model.compile(loss='mean_squared_error', optimizer='adam')
 
 # Specify the number of epochs to run
-num_epoch = 5
+num_epoch = 30
 for i range(num_epoch):
     
     # Fit

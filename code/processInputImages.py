@@ -1,15 +1,7 @@
-
-# coding: utf-8
-
-# In[ ]:
-
 import matplotlib.pyplot as plt
 import numpy as np
 import utilities
 import h5py
-
-
-# In[ ]:
 
 # Load HD5F file
 h5f = h5py.File('LowRes_13434_overlapping_pairs.h5','r')
