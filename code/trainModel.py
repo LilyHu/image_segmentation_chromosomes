@@ -35,15 +35,15 @@ for i range(num_epoch):
    
     # Calculate mIOU
     y_pred_train = model.predict(xdata[0:train_test_boundary_index,...]).round()
-    trainIOU = utilities.meanIU(y_pred_train, labels[0:train_test_boundary_index,...])
-    print('Training meanIU: ' + str(trainIOU))
+    trainIOU = utilities.IOU(y_pred_train, labels[0:train_test_boundary_index,...])
+    print('Training IOU: ' + str(trainIOU))
     trainAccuracy = utilities.globalAccuracy(y_pred_train, labels[0:train_test_boundary_index,...]
     print('Training accuracy: ' + str(trainAccuracy)))
     del y_pred_train
     
     y_pred_test = model.predict(xdata[train_test_boundary_index:,...]).round()
-    testIOU = utilities.meanIU(y_pred_test, labels[train_test_boundary_index:,...])
-    print('Testing meanIU: ' + str(testIOU))
+    testIOU = utilities.IOU(y_pred_test, labels[train_test_boundary_index:,...])
+    print('Testing IOU: ' + str(testIOU))
     testAccuracy = utilities.globalAccuracy(y_pred_test, labels[train_test_boundary_index:,...])
     print('Testing accuracy: ' + str(testAccuracy))
     del y_pred_test

@@ -22,8 +22,6 @@ def plotSamplesOneHots(labels_of_samples, output_file=False):
 
 
 def oneHotEncode(initial_array):
-    #if len(initial_array.shape) != 3:
-    #    print("Incorrect input size - should be (num_samples, x, y)")
     allowed_max_class_num = 3
     output_shape = list(initial_array.shape)
     output_shape[-1] = initial_array.max()
@@ -64,16 +62,12 @@ def cleanLabelNearestNeighbour(label):
     for x in range(1,x_length-1):
         for y in range(1, y_length-1):
             temp_label = label[x,y]
-            #print(label[(x-1):(x+2), (y-1):(y+2)])
-            #print('temp_label is ' + str(temp_label))
             if temp_label >3: # if labeled as 4 or above
                 temp_label = findNearestNeighbourLabel(label[(x-1):(x+2), (y-1):(y+2)])
                 cleaned_labels[x, y, temp_label] = 1
             elif temp_label > 0:
                 num_labels_in_3x3 = len(np.where(label[(x-1):(x+2), (y-1):(y+2)]==temp_label)[0])
-                #print('num_label is ' + str(num_labels_in_3x3))
                 if num_labels_in_3x3 > 3:
-                    #print('True')
                     cleaned_labels[x, y, temp_label] = 1
                 else:
                     temp_label = findNearestNeighbourLabel(label[(x-1):(x+2), (y-1):(y+2)])
@@ -105,7 +99,7 @@ def label012Chromosomes(labels):
 
 def makeXbyY(data, X, Y):
     '''
-    
+    Crop data to size X by Y
     '''
     if len(data.shape) < 3:
         print('Input should be of size (num_samples, x, y,...)')
@@ -114,7 +108,10 @@ def makeXbyY(data, X, Y):
     arrayXbyY = data[:, (data_x_start):(data_x_start + X), (data_y_start):(data_y_start + Y),...]
     return arrayXbyY
 
-def meanIU_per_image(y_pred, y_true):
+def meanIOU_per_image(y_pred, y_true):
+	'''
+	Calculate the IOU, averaged across images
+	'''
     if len(y_pred.shape) < 3 or (y_pred.shape[2]<4):
         print('Wrong dimensions: one hot encoding expected')
         return
@@ -130,7 +127,10 @@ def meanIU_per_image(y_pred, y_true):
             IUs.append(intersection.sum()/union.sum())
     return sum(IUs)/len(IUs)
 
-def meanIU(y_pred, y_true):
+def meanIOU(y_pred, y_true):
+	'''
+	Calculate the mean IOU, with the mean taken over classes
+	'''
     if len(y_pred.shape) < 4 or (y_pred.shape[3]<4):
         print('Wrong dimensions: one hot encoding expected')
         return
@@ -145,15 +145,35 @@ def meanIU(y_pred, y_true):
         else:
             IUs.append(intersection.sum()/union.sum())
     return sum(IUs)/len(IUs)
+	
+def IU(y_pred, y_true):
+	'''
+	Calculate the IOU for each class seperately
+	'''
+    if len(y_pred.shape) < 4 or (y_pred.shape[3]<4):
+        print('Wrong dimensions: one hot encoding expected')
+        return
+    y_pred = y_pred.astype('bool')
+    y_true = y_true.astype('bool')
+    IUs = []
+    for layer in range(y_true.shape[3]):
+        intersection = y_pred[...,layer] & y_true[...,layer]
+        union = y_pred[...,layer] | y_true[...,layer]
+        if union.sum() == 0:
+            IUs.append(1)
+        else:
+            IUs.append(intersection.sum()/union.sum())
+    return IUs
 
 def globalAccuracy(y_pred, y_true):
+	'''
+	Calculate the global accuracy (ie. percent of pixels correctly labelled)
+	'''
     y_pred = y_pred.astype('bool')
     y_true = y_true.astype('bool')
     correct = y_pred & y_true
     num_correct = correct.sum()
-    #print(num_correct)
     num_total = 1
     for dim in y_true.shape[0:-1]:
         num_total = num_total*dim
-    #print(num_total)
     return num_correct/num_total
